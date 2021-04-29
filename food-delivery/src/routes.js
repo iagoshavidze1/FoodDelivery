@@ -4,12 +4,14 @@ import SignUp from "./sign-up/sign-up";
 import SignIn from "./sign-in/Sign-In";
 
 const Routes = (props) => {
-    <BrowserRouter>
-        <Switch>
-            <Route path="/sign-in" component={SignIn} />
-            <Route path="/sign-up" component={SignUp} />
-        </Switch>
-    </BrowserRouter>;
+    return (
+        <BrowserRouter>
+            <Switch>
+                <Route path="/sign-in" component={SignIn} />
+                <Route path="/sign-up" component={SignUp} />
+            </Switch>
+        </BrowserRouter>
+    );
 };
 
 export default Routes;
