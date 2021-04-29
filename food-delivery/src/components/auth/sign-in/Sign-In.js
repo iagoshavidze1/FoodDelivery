@@ -45,7 +45,7 @@ const SignIn = (props) => {
                 {loading ? (
                     <Loader />
                 ) : (
-                    <form className="mt-3" onSubmit={formik.handleSubmit}>
+                    <form className="mt-3 w-100" onSubmit={formik.handleSubmit}>
                         <div className="form-group">
                             <TextField
                                 style={{ width: "100%" }}
