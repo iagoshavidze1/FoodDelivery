@@ -1,7 +1,7 @@
 import { Switch, Route, BrowserRouter } from "react-router-dom";
 
-import SignUp from "./sign-up/sign-up";
-import SignIn from "./sign-in/Sign-In";
+import SignUp from "components/auth/sign-up/sign-up";
+import SignIn from "components/auth/sign-in/Sign-In";
 
 const Routes = (props) => {
     return (
