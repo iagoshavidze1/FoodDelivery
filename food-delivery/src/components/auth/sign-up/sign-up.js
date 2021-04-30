@@ -1,5 +1,6 @@
 import { Formik } from "formik";
 import React, { useState } from "react";
+import axios from "axios";
 
 function SignUp() {
   debugger;
@@ -28,6 +29,7 @@ function SignUp() {
       onSubmit={(values) => {
         debugger;
         console.log(values);
+        axios.post("https://localhost:44369/Account/sign-upss", values);
       }}
     >
       {({
