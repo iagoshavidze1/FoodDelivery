@@ -42,7 +42,11 @@ function SignUp() {
       onSubmit={(values) => {
         debugger;
         console.log(values);
-        axios.post("https://localhost:44369/Account/sign-upss", values);
+        axios
+          .post("https://localhost:44369/Account/sign-upss", values)
+          .then((res) => {
+            //TODO::
+          });
       }}
     >
       {({
