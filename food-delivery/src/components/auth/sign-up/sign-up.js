@@ -8,23 +8,36 @@ function SignUp() {
 
   return (
     <Formik
-      initialValues={{ email: "", firstName: "", lastName: "", password: "" }}
+      initialValues={{
+        email: "",
+        firstName: "",
+        lastName: "",
+        password: "",
+        repeatePassword: "",
+      }}
       validate={(values) => {
         const errors = {};
-        if (!values.email) {
+        if (values.email.touched && !values.email) {
           errors.email = "email is required";
         } else if (
           !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
         ) {
           errors.email = "Invalid email address";
         }
-        if (!values.firstName) errors.firstName = "firstName is required";
+        if (values.firstName.touched && !values.firstName)
+          errors.firstName = "firstName is required";
 
-        if (!values.lastName) errors.lastName = "lastName is required";
+        if (values.lastName.touched && !values.lastName)
+          errors.lastName = "lastName is required";
 
-        if (!values.password) errors.password = "password is required";
+        if (values.password.touched && !values.password)
+          errors.password = "password is required";
 
-        return errors;
+        if (
+          values.repeatePassword.touched &&
+          values.password != values.repeatePassword
+        )
+          errors.repeatePassword = "repeat password doesn't to match password";
       }}
       onSubmit={(values) => {
         debugger;
@@ -40,46 +53,88 @@ function SignUp() {
         handleBlur,
         handleSubmit,
         isSubmitting,
-        /* and other goodies */
       }) => (
-        <form onSubmit={handleSubmit}>
-          <input
-            type="email"
-            name="email"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.email}
-          />
-          {errors.email && touched.email && errors.email}
+        <form action="action_page.php" style={{ border: "1px solid #ccc" }}>
+          <div className="container">
+            <h1>Sign Up</h1>
+            <p>Please fill in this form to create an account.</p>
+            {errors.email}
+            {errors.firstName}
+            {errors.lastName}
+            {errors.password}
+            {errors.repeatePassword}
 
-          <input
-            type="text"
-            name="firstName"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.firstName}
-          />
-          {errors.firstName && touched.firstName && errors.firstName}
+            <hr></hr>
 
-          <input
-            type="text"
-            name="lastName"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.lastName}
-          />
-          {errors.lastName && touched.lastName && errors.lastName}
-          <input
-            type="password"
-            name="password"
-            onChange={handleChange}
-            onBlur={handleBlur}
-            value={values.password}
-          />
-          {errors.password && touched.password && errors.password}
-          <button type="submit" disabled={isSubmitting}>
-            Submit
-          </button>
+            <label for="email">
+              <b>Email</b>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Email"
+              name="email"
+              value={values.email}
+              required
+            ></input>
+
+            <label for="firstName">
+              <b>FirstName</b>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Email"
+              name="firstName"
+              value={values.firstName}
+              required
+            ></input>
+
+            <label for="lastName">
+              <b>FirstName</b>
+            </label>
+            <input
+              type="text"
+              placeholder="Enter Email"
+              name="lastName"
+              value={values.lastName}
+              required
+            ></input>
+
+            <label for="password">
+              <b>Password</b>
+            </label>
+            <input
+              type="password"
+              placeholder="Enter Password"
+              name="password"
+              value={values.password}
+            ></input>
+            <label for="repeatePassword">
+              <b>Repeat Password</b>
+            </label>
+            <input
+              type="password"
+              placeholder="Repeat Password"
+              name="repeatePassword"
+              value={values.repeatePassword}
+            ></input>
+
+            <p>
+              By creating an account you agree to our{" "}
+              <a href="#" style={{ color: "dodgerblue" }}>
+                Terms & Privacy
+              </a>
+              .
+            </p>
+
+            <div className="clearfix">
+              <button type="button" className="cancelbtn">
+                Cancel
+              </button>
+              <button type="submit" className="signupbtn">
+                Sign Up
+              </button>
+            </div>
+          </div>
         </form>
       )}
     </Formik>
