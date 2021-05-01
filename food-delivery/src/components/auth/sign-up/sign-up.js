@@ -1,29 +1,43 @@
-import { Formik } from "formik";
-import React, { useState } from "react";
-import axios from "axios";
+import React, { useEffect, useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 import Loader from "utils/loader";
-import { TextField } from "@material-ui/core";
 import { errorHelper } from "utils/errorHelper";
 
-export default function SignUp() {
+import { useDispatch, useSelector } from "react-redux";
+import { userSignIn } from "store/actions/user.actions";
+import { TextField, Button } from "@material-ui/core";
+import { Label } from "@material-ui/icons";
+
+const SignUp = (props) => {
   const notifications = useSelector((state) => state.notifications);
   const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
 
   const formik = useFormik({
-    initialValues: { email: "francis@gmail.com", password: "testing123" },
+    initialValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
     validationSchema: Yup.object({
+      firstName: Yup.string().required("FirstName is required"),
+      lastName: Yup.string().required("LastName is required"),
       email: Yup.string()
         .required("Sorry the email is required")
         .email("This is an invalid email"),
       password: Yup.string().required("Sorry the password is required"),
-      confirmPassword: Yup.string().when("password", {
-        is: (val) => val.length > 0,
-        then: Yup.string().onOff(
-          [Yup.ref("password")],
-          "Both password need to be the same"
-        ),
-      }),
+      confirmPassword: Yup.string()
+        .required()
+        .when("password", {
+          is: (val) => (val && val.length > 0 ? true : false),
+          then: Yup.string().oneOf(
+            [Yup.ref("password")],
+            "Both password need to be the same"
+          ),
+        }),
     }),
     onSubmit: (values) => {
       setLoading(true);
@@ -51,6 +65,29 @@ export default function SignUp() {
         ) : (
           <form className="mt-3 w-100" onSubmit={formik.handleSubmit}>
             <div className="form-group">
+              <label for="firstName">FirstName</label>
+              <TextField
+                style={{ width: "100%" }}
+                name="firstName"
+                label="Enter your FirstName"
+                variant="outlined"
+                {...formik.getFieldProps("firstName")}
+                {...errorHelper(formik, "firstName")}
+              />
+            </div>
+            <div className="form-group">
+              <label for="lastName">LastName</label>
+              <TextField
+                style={{ width: "100%" }}
+                name="lastName"
+                label="Enter your LastName"
+                variant="outlined"
+                {...formik.getFieldProps("lastName")}
+                {...errorHelper(formik, "lastName")}
+              />
+            </div>
+            <div className="form-group">
+              <label for="email">Email</label>
               <TextField
                 style={{ width: "100%" }}
                 name="email"
@@ -61,6 +98,7 @@ export default function SignUp() {
               />
             </div>
             <div className="form-group">
+              <label for="password">Password</label>
               <TextField
                 style={{ width: "100%" }}
                 name="password"
@@ -72,6 +110,7 @@ export default function SignUp() {
               />
             </div>
             <div className="form-group">
+              <label for="confirmPassword">ConfirmPassword</label>
               <TextField
                 style={{ width: "100%" }}
                 name="confirmPassword"
@@ -226,4 +265,6 @@ export default function SignUp() {
     //   )}
     // </Formik>
   );
-}
+};
+
+export default SignUp;
