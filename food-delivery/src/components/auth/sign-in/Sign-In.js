@@ -41,41 +41,49 @@ const SignIn = (props) => {
 
     return (
         <>
-            <div className="sign-in_container">
+            <div className="sign-in_container flex-column">
                 {loading ? (
                     <Loader />
                 ) : (
-                    <form className="mt-3 w-100" onSubmit={formik.handleSubmit}>
-                        <div className="form-group">
-                            <TextField
-                                style={{ width: "100%" }}
-                                name="email"
-                                label="Enter your email"
-                                variant="outlined"
-                                {...formik.getFieldProps("email")}
-                                {...errorHelper(formik, "email")}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <TextField
-                                style={{ width: "100%" }}
-                                name="password"
-                                label="Enter your password"
-                                variant="outlined"
-                                type="password"
-                                {...formik.getFieldProps("password")}
-                                {...errorHelper(formik, "password")}
-                            />
-                        </div>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            type="submit"
-                            size="small"
-                        >
+                    <>
+                        <p className="d-flex justify-content-center title-description">
                             Sign In
-                        </Button>
-                    </form>
+                        </p>
+                        <form
+                            className="mt-3 w-100"
+                            onSubmit={formik.handleSubmit}
+                        >
+                            <div className="form-group">
+                                <TextField
+                                    style={{ width: "100%" }}
+                                    name="email"
+                                    label="Enter your email"
+                                    variant="outlined"
+                                    {...formik.getFieldProps("email")}
+                                    {...errorHelper(formik, "email")}
+                                />
+                            </div>
+                            <div className="form-group">
+                                <TextField
+                                    style={{ width: "100%" }}
+                                    name="password"
+                                    label="Enter your password"
+                                    variant="outlined"
+                                    type="password"
+                                    {...formik.getFieldProps("password")}
+                                    {...errorHelper(formik, "password")}
+                                />
+                            </div>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                                size="small"
+                            >
+                                Sign In
+                            </Button>
+                        </form>
+                    </>
                 )}
             </div>
         </>
