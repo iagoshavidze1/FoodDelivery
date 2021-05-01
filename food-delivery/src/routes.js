@@ -2,7 +2,7 @@ import { Switch, Route, BrowserRouter } from "react-router-dom";
 
 import SignIn from "components/auth/sign-in/Sign-In";
 import MainLayout from "hocs/mainLayout";
-import SignUp from "components/auth/sign-up/Sign-Up";
+import SignUp from "components/auth/sign-up/sign-up";
 
 const Routes = (props) => {
     return (
